@@ -46,6 +46,7 @@ Invoke ". build/envsetup.sh" from your shell to add the following functions to y
 - aospremote: Add git remote for matching AOSP repository.
 - mka:        Builds using all the processors allowed.
 - reposync:   Parallel repo sync.
+- repolastsync: Prints date and time of last repo sync.
 
 EOF
 
@@ -1942,6 +1943,14 @@ function mka() {
 function reposync() {
     local Jobs=$(eval nproc)
     repo sync -j $Jobs "$@"
+}
+
+function repolastsync() {
+    local T=$(gettop)
+    RLSPATH="$T/.repo/.repo_fetchtimes.json"
+    RLSLOCAL=$(date -d "$(stat -c %z $RLSPATH)" +"%e %b %Y, %T %Z")
+    RLSUTC=$(date -d "$(stat -c %z $RLSPATH)" -u +"%e %b %Y, %T %Z")
+    echo "Last repo sync: $RLSLOCAL / $RLSUTC"
 }
 
 validate_current_shell
