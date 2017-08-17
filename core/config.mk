@@ -320,7 +320,9 @@ FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 # be device and hardware independent.
 $(call project-set-path-variant,ril,TARGET_RIL_VARIANT,hardware/ril)
 
+ifneq ($(CUSTOM_BUILD),)
 include vendor/ppui/config/BoardConfig.mk
+endif
 
 # The build system exposes several variables for where to find the kernel
 # headers:
@@ -1174,10 +1176,19 @@ endif
 DEFAULT_DATA_OUT_MODULES := ltp $(ltp_packages) $(kselftest_modules)
 .KATI_READONLY := DEFAULT_DATA_OUT_MODULES
 
-$(eval include device/custom/sepolicy/common/sepolicy.mk)
-
 # Make RECORD_ALL_DEPS readonly.
 RECORD_ALL_DEPS :=$= $(filter true,$(RECORD_ALL_DEPS))
+
+ifneq ($(CUSTOM_BUILD),)
+ifneq ($(wildcard device/custom/sepolicy/common/sepolicy.mk),)
+## We need to be sure the global selinux policies are included
+## last, to avoid accidental resetting by device configs
+$(eval include device/custom/sepolicy/common/sepolicy.mk)
+endif
+endif
+
+# Include any vendor specific config.mk file
+-include vendor/*/build/core/config.mk
 
 include $(BUILD_SYSTEM)/dumpvar.mk
 
