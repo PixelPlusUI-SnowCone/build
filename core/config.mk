@@ -1176,3 +1176,6 @@ DEFAULT_DATA_OUT_MODULES := ltp $(ltp_packages) $(kselftest_modules)
 RECORD_ALL_DEPS :=$= $(filter true,$(RECORD_ALL_DEPS))
 
 include $(BUILD_SYSTEM)/dumpvar.mk
+
+include $(BUILD_SYSTEM)/BoardConfigKernel.mk
+include $(BUILD_SYSTEM)/BoardConfigSoong.mk
