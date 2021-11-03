@@ -267,12 +267,12 @@ class EdifyGenerator(object):
   def PrintPPUIBanner(self, android_version, build_id, build_date,
                                   security_patch, device):
     self.Print("----------------------------------------------")
-    self.Print("          ______  ______  __    __  ___      ");
-    self.Print("         / __  / / __  / / /   / / /  /      ");
-    self.Print("        / /_/ / / /_/ / / /   / / /  /       ");
-    self.Print("       /  ___/ /  ___/ / /   / / /  /        ");
-    self.Print("      /  /    /  /    / /___/ / /  /         ");
-    self.Print("     /__/    /__/     \______/ /__/          ");
+    self.Print("          _____  _____  _    _ _____          ");
+    self.Print("         |  __ \|  __ \| |  | |_   _|         ");
+    self.Print("         | |__) | |__) | |  | | | |           ");
+    self.Print("         |  ___/|  ___/| |  | | | |           ");
+    self.Print("         | |    | |    | |__| |_| |_          ");
+    self.Print("         |_|    |_|     \____/|_____|         ");
     self.Print("----------------------------------------------")
     self.Print(" Android Version: %s"%(android_version));
     self.Print(" Build ID: %s"%(build_id));
