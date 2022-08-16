@@ -28,7 +28,17 @@ PROP_VALUE_MAX = 91
 # Put the modifications that you need to make into the */build.prop into this
 # function.
 def mangle_build_prop(prop_list):
-  pass
+
+  # If ro.debuggable is 1, then enable adb on USB by default
+  # (this is for userdebug builds)
+  if prop_list.get_value("ro.debuggable") == "1":
+    val = prop_list.get_value("persist.sys.usb.config")
+    if "adb" not in val:
+      if val == "":
+        val = "adb"
+      else:
+        val = val + ",adb"
+      prop_list.put("persist.sys.usb.config", val)
 
 def validate_grf_props(prop_list, sdk_version):
   """Validate GRF properties if exist.
