@@ -276,6 +276,23 @@ class EdifyGenerator(object):
     """Log a message to the screen (if the logs are visible)."""
     self.script.append('ui_print("%s");' % (message,))
 
+  def PrintPixelPlusUIBanner(self, android_version, build_id, build_date,
+                                  security_patch, device):  
+    self.Print("----------------------------------------------")
+    self.Print("          _____  _____  _    _ _____          ");
+    self.Print("         |  __ \|  __ \| |  | |_   _|         ");
+    self.Print("         | |__) | |__) | |  | | | |           ");
+    self.Print("         |  ___/|  ___/| |  | | | |           ");
+    self.Print("         | |    | |    | |__| |_| |_          ");
+    self.Print("         |_|    |_|     \____/|_____|         ");
+    self.Print("----------------------------------------------")
+    self.Print(" Android Version: %s"%(android_version));
+    self.Print(" Build ID: %s"%(build_id));
+    self.Print(" Build Time: %s"%(build_date));
+    self.Print(" Security Patch: %s"%(security_patch));
+    self.Print(" Device: %s"%(device))
+    self.Print("----------------------------------------------")
+
   def TunePartition(self, partition, *options):
     fstab = self.fstab
     if fstab:
